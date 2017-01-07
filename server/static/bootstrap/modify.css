@@ -1,0 +1,40 @@
+.navbar{
+	border-radius:0px;
+	padding: 0px;
+	letter-spacing: 3px;
+	background: #34a853;
+	border: 0px;
+	font-size: 12px !important;
+}
+.navbar li a, .navbar .navbar-brand{
+	color: #fff !important;
+}
+.navbar-nav li a:hover{
+	color: #9896A4 !important;
+}
+.button{
+	margin-top: 8px;
+}
+.video{
+	width: 840px;
+}
+.panel-1{
+	background-color: #34a853;
+}
+.panel-1 > .panel-heading{
+	background-color: #34a853;	
+}
+.panel-1 > .panel-body{
+	background: #fff;
+	border-color: #34a853;	
+}
+.panel-2{
+	background-color: #34a853;
+}
+.panel-2 > .panel-heading{
+	background-color: #34a853;	
+}
+.panel-2 > .panel-body{
+	background: #fff;
+	border-color: #34a853;
+}

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Testing</title>
+  </head>
+  <body>
+    	<h1>
+		<div id="result"></div>
+	</h1>
+
+	<script>
+		if(typeof(EventSource) !== "undefined"){
+			var source = new EventSource("/stream");
+			source.onmessage = function(event){
+				document.getElementById("result").innerHTML = event.data;
+			}
+		}
+	</script>
+
+    <img src="{{ url_for('render_video') }}"><br>
+		
+  </body>
+</html>

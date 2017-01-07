@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Interfacing</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/modify.css') }}">
+</head>
+<body>
+        <!-- NAVIGATION -->
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                        <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#fanatic">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>
+                        	<a class="navbar-brand" href="#">STT Hamzanwadi</a>
+                        </div>
+                </div>
+        </nav>
+        <!-- END NAVIGATION -->
+        <div class="container-fluid">
+        <!-- CONTENT -->
+		<div class="row">
+
+                       <div class="col-sm-8">
+				<img src="{{ url_for('render_video') }}" class="img-responsive">
+                        </div>
+
+                        <div class="col-sm-4">
+                                <div class="panel panel-1">
+                                        <div class="panel-heading text-center"><h2>Suhu &deg;C</h2></div>
+                                        <div class="panel-body text-center">
+						<h1><span id="temp"></span></h1>
+					</div>
+					<script>
+						var data_sens = [];
+						if(typeof(EventSource) !== "undefined"){
+							var source = new EventSource("/stream");
+							source.onmessage = function(event){
+								document.getElementById("temp").innerHTML = event.data;
+								
+								if(data_sens.length == 6){
+									data_sens.splice(5,1);
+									//data_sens = [];
+								}
+								data_sens.unshift(event.data);
+
+								if(typeof(data_sens[1]) === "undefined"){
+									document.getElementById("d0").innerHTML = 0;
+								} else {
+									document.getElementById("d0").innerHTML = data_sens[1];
+								}
+
+								if(typeof(data_sens[2]) === "undefined"){
+									document.getElementById("d1").innerHTML = 0;
+								} else {
+									document.getElementById("d1").innerHTML = data_sens[2];
+								}
+
+								if(typeof(data_sens[3]) === "undefined"){
+									document.getElementById("d2").innerHTML = 0;	
+								} else {
+									document.getElementById("d2").innerHTML = data_sens[3];
+								}
+
+								if(typeof(data_sens[4]) === "undefined"){
+									document.getElementById("d3").innerHTML = 0;
+								} else {
+									document.getElementById("d3").innerHTML = data_sens[4];
+								}
+
+								if(typeof(data_sens[5]) === "undefined"){
+									document.getElementById("d4").innerHTML = 0;
+								} else {
+									document.getElementById("d4").innerHTML = data_sens[5];
+								}
+							}
+						} else {
+							document.getElementById("temp").innerHTML = "BROWSER TIDAK MENDUKUNG";
+						}
+					</script>
+                                </div>
+                                <div class="panel panel-1">
+                                        <div class="panel-heading text-center"><h2>Suhu Sebelumnya &deg;C</h2></div>
+					<div class="panel-body text-center"><span id="d0"></span></div>
+					<div class="panel-body text-center"><span id="d1"></span></div>
+					<div class="panel-body text-center"><span id="d2"></span></div>
+					<div class="panel-body text-center"><span id="d3"></span></div>
+					<div class="panel-body text-center"><span id="d4"></span></div>
+                                </div>
+                        </div>
+                </div>
+        <!-- END CONTENT -->
+        </div>
+<!-- JS require -->
+	<script type="text/javascript" src="{{ url_for('static',filename='bootstrap/jquery-1.11.3.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+</html>
